@@ -12,7 +12,6 @@ export const fetchAsyncLogin = createAsyncThunk('login/post', async (auth) => {
       'Content-Type': 'application/json',
     },
   });
-  console.log(res.data);
   return res.data;
 });
 
@@ -31,7 +30,7 @@ export const fetchAsyncRegister = createAsyncThunk(
 
 // ユーザーデータ取得非同期処理
 export const fetchAsyncProf = createAsyncThunk('login/get', async () => {
-  const res = await axios.post(`${apiUrl}api/myself/`, {
+  const res = await axios.get(`${apiUrl}api/myself/`, {
     headers: {
       Authorization: `JWT ${token}`,
     },

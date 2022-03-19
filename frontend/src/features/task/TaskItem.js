@@ -20,7 +20,7 @@ const TaskItem = ({ task }) => {
         <button onClick={() => dispatch(fetchAsyncDelete(task.id))}>
           <BsTrash />
         </button>
-        <button onClick={() => dispatch(editTask(task.id))}>
+        <button onClick={() => dispatch(editTask(task))}>
           <FaEdit />
         </button>
       </div>
