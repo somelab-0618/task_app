@@ -90,9 +90,7 @@ const taskSlice = createSlice({
     builder.addCase(fetchAsyncDelete.fulfilled, (state, action) => {
       return {
         ...state,
-        tasks: state.tasks.map((t) =>
-          t.id !== action.payload.id ? action.payload : t
-        ),
+        tasks: state.tasks.filter((t) => t.id !== action.payload),
         selectedTask: initialTask,
       };
     });
@@ -101,8 +99,8 @@ const taskSlice = createSlice({
 
 export const { editTask, selectTask } = taskSlice.actions;
 
-export const selectSelectedTask = (state) => state.task.selectSelectedTask;
+export const selectSelectedTask = (state) => state.task.selectedTask;
 export const selectEditedTask = (state) => state.task.editedTask;
-export const selectTasks = (state) => state.task.selectTasks;
+export const selectTasks = (state) => state.task.tasks;
 
 export default taskSlice.reducer;
