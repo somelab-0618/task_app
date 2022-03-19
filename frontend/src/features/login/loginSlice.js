@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:800/';
+const apiUrl = 'http://localhost:8000/';
 // トークン格納
 const token = localStorage.localJWT;
 
@@ -12,6 +12,7 @@ export const fetchAsyncLogin = createAsyncThunk('login/post', async (auth) => {
       'Content-Type': 'application/json',
     },
   });
+  console.log(res.data);
   return res.data;
 });
 
@@ -19,7 +20,7 @@ export const fetchAsyncLogin = createAsyncThunk('login/post', async (auth) => {
 export const fetchAsyncRegister = createAsyncThunk(
   'login/register',
   async (auth) => {
-    const res = await axios.post(`${apiUrl}api/register`, auth, {
+    const res = await axios.post(`${apiUrl}api/register/`, auth, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -30,7 +31,7 @@ export const fetchAsyncRegister = createAsyncThunk(
 
 // ユーザーデータ取得非同期処理
 export const fetchAsyncProf = createAsyncThunk('login/get', async () => {
-  const res = await axios.post(`${apiUrl}api/myself`, {
+  const res = await axios.post(`${apiUrl}api/myself/`, {
     headers: {
       Authorization: `JWT ${token}`,
     },
@@ -65,7 +66,7 @@ const loginSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
       localStorage.setItem('localJWT', action.payload.access);
-      action.payload.access && (window.location.herf = '/tasks');
+      action.payload.access && (window.location.href = '/tasks');
     });
     builder.addCase(fetchAsyncProf.fulfilled, (state, action) => {
       state.profile = action.payload;
